@@ -3,11 +3,11 @@ import express from 'express';
 import logger from 'morgan';
 
 import indexRouter from './routes/index.js';
-import usersRouter from './routes/users.js';
+import usersRouter from './routes/user.js';
 
 var app = express();
 
-const PORT = 3000;
+const PORT = 5000;
 
 app.use(logger('dev'));
 app.use(express.json());
