@@ -1,4 +1,4 @@
-import { BaseEntity, BeforeInsert, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, BeforeInsert, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import bcrypt from 'bcrypt';
 
 @Entity('users')
@@ -15,22 +15,26 @@ export class User extends BaseEntity {
     @BeforeInsert()
     async hashPassword() {
         if (this.password) {
-            this.password = await bcrypt.hash(this.password, 10)
+            this.password = await bcrypt.hash(this.password, 10);
         }
     }
+
     @Column({ nullable: false })
     password: string;
 
     @Column({
         type: 'enum',
         enum: ['user', 'admin'],
-        default: 'user'
+        default: 'user',
     })
     role: 'user' | 'admin';
 
     @CreateDateColumn({
         type: 'timestamp',
-        default: () => "CURRENT_TIMESTAMP()"
+        default: () => 'CURRENT_TIMESTAMP()',
     })
     createdAt: Date;
+
+    @Column({ nullable: true, type: 'varchar', length: 255 }) // Use VARCHAR column type
+    imageS3Link: string | null;
 }
